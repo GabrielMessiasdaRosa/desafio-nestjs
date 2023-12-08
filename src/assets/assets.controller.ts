@@ -28,15 +28,15 @@ export class AssetsController {
           ...asset,
           _links: {
             self: {
-              href: `/assets/${asset.id}`,
+              href: `api/assets/${asset.id}`,
             },
             update: {
-              href: `/assets/${asset.id}`,
+              href: `api/assets/${asset.id}`,
               description: 'Update an existing asset',
               method: 'PATCH',
             },
             delete: {
-              href: `/assets/${asset.id}`,
+              href: `api/assets/${asset.id}`,
               description: 'Delete an existing asset',
               method: 'DELETE',
             },
@@ -45,10 +45,10 @@ export class AssetsController {
       },
       {
         self: {
-          href: '/assets',
+          href: 'api/assets',
         },
         create: {
-          href: `/assets`,
+          href: `api/assets`,
           description: 'Create a new asset',
           method: 'POST',
         },
@@ -66,15 +66,15 @@ export class AssetsController {
           ...asset,
           _links: {
             self: {
-              href: `/assets/${asset.id}`,
+              href: `api/assets/${asset.id}`,
             },
             update: {
-              href: `/assets/${asset.id}`,
+              href: `api/assets/${asset.id}`,
               description: 'Update an existing asset',
               method: 'PATCH',
             },
             delete: {
-              href: `/assets/${asset.id}`,
+              href: `api/assets/${asset.id}`,
               description: 'Delete an existing asset',
               method: 'DELETE',
             },
@@ -83,10 +83,10 @@ export class AssetsController {
       },
       {
         self: {
-          href: '/assets',
+          href: 'api/assets',
         },
         create: {
-          href: `/assets`,
+          href: `api/assets`,
           description: 'Create a new asset',
           method: 'POST',
         },
@@ -103,16 +103,16 @@ export class AssetsController {
         ...asset,
         _links: {
           self: {
-            href: `/assets/${id}`,
+            href: `api/assets/${id}`,
           },
           update: {
-            href: `/assets/${id}`,
+            href: `api/assets/${id}`,
             description: 'Update an existing asset',
             method: 'PATCH',
             warning: 'Always use PATCH to update this resource !',
           },
           delete: {
-            href: `/assets/${id}`,
+            href: `api/assets/${id}`,
             description: 'Delete an existing asset',
             method: 'DELETE',
           },
@@ -132,16 +132,16 @@ export class AssetsController {
         ...updatedAsset,
         _links: {
           self: {
-            href: `/assets/${id}`,
+            href: `api/assets/${id}`,
           },
           update: {
-            href: `/assets/${id}`,
+            href: `api/assets/${id}`,
             description: 'Update an existing asset',
             method: 'PATCH',
             warning: 'Always use PATCH to update this resource !',
           },
           delete: {
-            href: `/assets/${id}`,
+            href: `api/assets/${id}`,
             description: 'Delete an existing asset',
             method: 'DELETE',
           },
@@ -161,7 +161,7 @@ export class AssetsController {
       },
       {
         create: {
-          href: `/assets`,
+          href: `api/assets`,
           description: 'Create a new asset',
           method: 'POST',
         },
