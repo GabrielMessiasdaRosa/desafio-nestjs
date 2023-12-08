@@ -1,27 +1,56 @@
 
 ###
-POST http://localhost:3000/assets
+POST http://localhost:3000/api/assets
 Content-Type: application/json
 
 {
-  "name": "Example Resource",
-  "description": "This is an example resource"
+	"id" :"507f1f77bcf86cd799439012",
+	"symbol" :"GMT1"
 }
 
 ### 
-GET http://localhost:3000/assets
+GET http://localhost:3000/api/assets
 
 ###
-GET http://localhost:3000/assets/
+GET http://localhost:3000/api/assets/507f1f77bcf86cd799439012
 
 ### 
-PUT http://localhost:3000/assets/
+PATCH http://localhost:3000/api/assets/507f1f77bcf86cd799439012
 Content-Type: application/json
 
 {
-  "name": "Updated Resource",
-  "description": "This resource has been updated"
+	"symbol" :"GMT2"
 }
 
 ###
-DELETE http://localhost:3000/assets/{id}
+DELETE http://localhost:3000/api/assets/507f1f77bcf86cd799439012
+
+
+// ORDERS //
+###
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+	"asset_id":"507f1f77bcf86cd799439012",
+	"price": 20
+}
+
+###
+GET http://localhost:3000/api/orders
+
+###
+GET http://localhost:3000/api/orders/:id_here
+
+###
+PATCH http://localhost:3000/api/orders/:id_here
+Content-Type: application/json
+
+{
+  "price": 30
+}
+
+###
+DELETE http://localhost:3000/api/orders/:id_here
+
+

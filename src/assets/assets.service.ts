@@ -3,7 +3,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Asset } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
@@ -39,7 +38,7 @@ export class AssetsService {
     return assets;
   }
 
-  async findOne(id: string): Promise<Asset> {
+  async findOne(id: string) {
     const asset = await this.prismaService.asset.findUnique({
       where: { id },
       include: { orders: true },
@@ -61,8 +60,18 @@ export class AssetsService {
 
   async remove(id: string) {
     const asset = await this.findOne(id);
-    return this.prismaService.asset.delete({
-      where: { id: asset.id },
-    });
+    // Start a transaction
+    const transaction = await this.prismaService.$transaction([
+      // Delete all orders associated with the asset
+      this.prismaService.order.deleteMany({
+        where: { asset_id: asset.id },
+      }),
+      // Delete the asset
+      this.prismaService.asset.delete({
+        where: { id: asset.id },
+      }),
+    ]);
+
+    return asset;
   }
 }

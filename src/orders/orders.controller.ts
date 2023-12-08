@@ -20,25 +20,23 @@ export class OrdersController {
   @Post()
   async create(
     @Body() createOrderDto: CreateOrderDto,
-  ): Promise<BaseResponseHateoas<Partial<Order>>> {
+  ): Promise<BaseResponseHateoas<Order>> {
     const order = await this.ordersService.create(createOrderDto);
     return new BaseResponseHateoas(
       {
         data: {
-          _id: order.id,
-          asset_id: order.asset_id,
-          price: order.price,
+          ...order,
           _links: {
             self: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
             },
             update: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Update an existing order',
               method: 'PATCH',
             },
             delete: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Delete an existing order',
               method: 'DELETE',
             },
@@ -47,10 +45,10 @@ export class OrdersController {
       },
       {
         self: {
-          href: '/orders',
+          href: 'api/orders',
         },
         create: {
-          href: `/orders`,
+          href: `api/orders`,
           description: 'Create a new order',
           method: 'POST',
         },
@@ -59,25 +57,23 @@ export class OrdersController {
   }
 
   @Get()
-  async findAll(): Promise<BaseResponseHateoas<Partial<Order>>> {
+  async findAll(): Promise<BaseResponseHateoas<Order>> {
     const orders = await this.ordersService.findAll();
     return new BaseResponseHateoas(
       {
         data: orders.map((order) => ({
-          _id: order.id,
-          asset_id: order.asset_id,
-          price: order.price,
+          ...order,
           _links: {
             self: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
             },
             update: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Update an existing order',
               method: 'PATCH',
             },
             delete: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Delete an existing order',
               method: 'DELETE',
             },
@@ -86,10 +82,10 @@ export class OrdersController {
       },
       {
         self: {
-          href: '/orders',
+          href: 'api/orders',
         },
         create: {
-          href: `/orders`,
+          href: `api/orders`,
           description: 'Create a new order',
           method: 'POST',
         },
@@ -98,27 +94,23 @@ export class OrdersController {
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id') id: string,
-  ): Promise<BaseResponseHateoas<Partial<Order>>> {
+  async findOne(@Param('id') id: string): Promise<BaseResponseHateoas<Order>> {
     const order = await this.ordersService.findOne(id);
     return new BaseResponseHateoas(
       {
         data: {
-          _id: order.id,
-          asset_id: order.asset_id,
-          price: order.price,
+          ...order,
           _links: {
             self: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
             },
             update: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Update an existing order',
               method: 'PATCH',
             },
             delete: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Delete an existing order',
               method: 'DELETE',
             },
@@ -127,10 +119,10 @@ export class OrdersController {
       },
       {
         self: {
-          href: '/orders',
+          href: 'api/orders',
         },
         create: {
-          href: `/orders`,
+          href: `api/orders`,
           description: 'Create a new order',
           method: 'POST',
         },
@@ -142,25 +134,23 @@ export class OrdersController {
   async update(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
-  ): Promise<BaseResponseHateoas<Partial<Order>>> {
+  ): Promise<BaseResponseHateoas<Order>> {
     const order = await this.ordersService.update(id, updateOrderDto);
     return new BaseResponseHateoas(
       {
         data: {
-          _id: order.id,
-          asset_id: order.asset_id,
-          price: order.price,
+          ...order,
           _links: {
             self: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
             },
             update: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Update an existing order',
               method: 'PATCH',
             },
             delete: {
-              href: `/orders/${order.id}`,
+              href: `api/orders/${order.id}`,
               description: 'Delete an existing order',
               method: 'DELETE',
             },
@@ -169,10 +159,10 @@ export class OrdersController {
       },
       {
         self: {
-          href: '/orders',
+          href: 'api/orders',
         },
         create: {
-          href: `/orders`,
+          href: `api/orders`,
           description: 'Create a new order',
           method: 'POST',
         },
@@ -181,24 +171,20 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  async remove(
-    @Param('id') id: string,
-  ): Promise<BaseResponseHateoas<Partial<Order>>> {
+  async remove(@Param('id') id: string): Promise<BaseResponseHateoas<Order>> {
     const deletedOrder = await this.ordersService.remove(id);
     return new BaseResponseHateoas(
       {
         data: {
-          _id: deletedOrder.id,
-          asset_id: deletedOrder.asset_id,
-          price: deletedOrder.price,
+          ...deletedOrder,
         },
       },
       {
         self: {
-          href: '/orders',
+          href: 'api/orders',
         },
         create: {
-          href: `/orders`,
+          href: `api/orders`,
           description: 'Create a new order',
           method: 'POST',
         },
