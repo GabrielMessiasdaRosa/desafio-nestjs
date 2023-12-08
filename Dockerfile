@@ -2,7 +2,7 @@ FROM node:slim
 RUN apt-get update -y && apt-get install -y openssl
 RUN npm install -g @nestjs/cli
 
-WORKDIR /urs/src/app
+WORKDIR /usr/src/app
 
 COPY package*.json .
 
