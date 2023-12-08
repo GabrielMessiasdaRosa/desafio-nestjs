@@ -59,7 +59,6 @@ export class AssetsController {
   @Get()
   async findAll(): Promise<BaseResponseHateoas<Asset>> {
     const assets = await this.assetsService.findAll();
-    console.log(assets);
     return new BaseResponseHateoas(
       {
         data: assets.map((asset) => ({
