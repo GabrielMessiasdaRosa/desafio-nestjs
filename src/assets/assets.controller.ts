@@ -64,6 +64,24 @@ export class AssetsController {
       {
         data: assets.map((asset) => ({
           ...asset,
+          orders: asset.orders.map((order) => ({
+            ...order,
+            _links: {
+              self: {
+                href: `api/orders/${order.id}`,
+              },
+              update: {
+                href: `api/orders/${order.id}`,
+                description: 'Update an existing order',
+                method: 'PATCH',
+              },
+              delete: {
+                href: `api/orders/${order.id}`,
+                description: 'Delete an existing order',
+                method: 'DELETE',
+              },
+            },
+          })),
           _links: {
             self: {
               href: `api/assets/${asset.id}`,
