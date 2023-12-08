@@ -20,13 +20,12 @@ export class AssetsController {
   @Post()
   async create(
     @Body() createAssetDto: CreateAssetDto,
-  ): Promise<BaseResponseHateoas<Partial<Asset>>> {
+  ): Promise<BaseResponseHateoas<Asset>> {
     const asset = await this.assetsService.create(createAssetDto);
     return new BaseResponseHateoas(
       {
         data: {
-          _id: asset.id,
-          symbol: asset.symbol,
+          ...asset,
           _links: {
             self: {
               href: `/assets/${asset.id}`,
@@ -58,15 +57,13 @@ export class AssetsController {
   }
 
   @Get()
-  async findAll(): Promise<BaseResponseHateoas<Partial<Asset>>> {
+  async findAll(): Promise<BaseResponseHateoas<Asset>> {
     const assets = await this.assetsService.findAll();
-
+    console.log(assets);
     return new BaseResponseHateoas(
       {
         data: assets.map((asset) => ({
-          _id: asset.id,
-          symbol: asset.symbol,
-            orders: (asset as Asset & { orders: any }).orders,
+          ...asset,
           _links: {
             self: {
               href: `/assets/${asset.id}`,
@@ -75,7 +72,6 @@ export class AssetsController {
               href: `/assets/${asset.id}`,
               description: 'Update an existing asset',
               method: 'PATCH',
-              warning: 'Always use PATCH to update this resource !',
             },
             delete: {
               href: `/assets/${asset.id}`,
@@ -99,15 +95,12 @@ export class AssetsController {
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id') id: string,
-  ): Promise<BaseResponseHateoas<Partial<Asset>>> {
+  async findOne(@Param('id') id: string): Promise<BaseResponseHateoas<Asset>> {
     const asset = await this.assetsService.findOne(id);
 
     return new BaseResponseHateoas({
       data: {
-        _id: asset.id,
-        symbol: asset.symbol,
+        ...asset,
         _links: {
           self: {
             href: `/assets/${id}`,
@@ -132,12 +125,11 @@ export class AssetsController {
   async update(
     @Param('id') id: string,
     @Body() updateAssetDto: UpdateAssetDto,
-  ): Promise<BaseResponseHateoas<Partial<Asset>>> {
+  ): Promise<BaseResponseHateoas<Asset>> {
     const updatedAsset = await this.assetsService.update(id, updateAssetDto);
     return new BaseResponseHateoas({
       data: {
-        _id: updatedAsset.id,
-        symbol: updatedAsset.symbol,
+        ...updatedAsset,
         _links: {
           self: {
             href: `/assets/${id}`,
@@ -155,20 +147,16 @@ export class AssetsController {
           },
         },
       },
-      message: 'Asset updated successfully',
     });
   }
 
   @Delete(':id')
-  async remove(
-    @Param('id') id: string,
-  ): Promise<BaseResponseHateoas<Partial<Asset>>> {
+  async remove(@Param('id') id: string): Promise<BaseResponseHateoas<Asset>> {
     const deletedAsset = await this.assetsService.remove(id);
     return new BaseResponseHateoas(
       {
         data: {
-          _id: deletedAsset.id,
-          symbol: deletedAsset.symbol,
+          ...deletedAsset,
         },
       },
       {

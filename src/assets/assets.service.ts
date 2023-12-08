@@ -30,7 +30,7 @@ export class AssetsService {
   }
 
   async findAll() {
-    const assets: Asset[] = await this.prismaService.asset.findMany({
+    const assets = await this.prismaService.asset.findMany({
       include: { orders: true },
     });
     if (!assets) {
@@ -42,6 +42,7 @@ export class AssetsService {
   async findOne(id: string): Promise<Asset> {
     const asset = await this.prismaService.asset.findUnique({
       where: { id },
+      include: { orders: true },
     });
     if (!asset) {
       throw new NotFoundException(`Asset #${id} not found`);

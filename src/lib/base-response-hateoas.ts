@@ -1,16 +1,33 @@
-export class BaseResponseHateoas<T> {
+export class BaseResponseHateoas<T, A = T[]> {
   constructor(
     public readonly _embedded: {
-      data: Partial<T[]> | Partial<T>;
+      data: Partial<T> | Partial<A>;
       _links?: HateoasLinksType;
-      [key: string]: any;
     },
     public readonly _links?: HateoasLinksType,
   ) {}
 }
 
-export type HateoasLinksType = {
-  [key: string]: {
-    [key: string]: string;
+export interface HateoasLinksType {
+  self?: {
+    href: string;
+    description?: string;
+    method?: string;
   };
-};
+  create?: {
+    href: string;
+    description?: string;
+    method?: string;
+  };
+  update?: {
+    href: string;
+    description?: string;
+    method?: string;
+  };
+  delete?: {
+    href: string;
+    description?: string;
+    method?: string;
+  };
+  [key: string]: any;
+}
