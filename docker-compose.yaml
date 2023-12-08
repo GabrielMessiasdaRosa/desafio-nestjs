@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: bitnami/mongodb:latest
+    restart: always
+    volumes:
+      - mongodb_data:/bitnami/mongodb
+    environment:
+      MONGODB_ROOT_PASSWORD: root
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_DATABASE: nestjs-db
+    networks:
+      - default
+
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/home/node/app
+    networks:
+      - default
+
+networks:
+  default:
+    name: nestjs-network
+
+volumes:
+  mongodb_data:
+    driver: local
