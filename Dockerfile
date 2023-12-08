@@ -1,9 +1,18 @@
 FROM node:slim
-
 RUN apt-get update -y && apt-get install -y openssl
 RUN npm install -g @nestjs/cli
 
-WORKDIR /home/node/app
+WORKDIR /urs/src/app
 
-CMD ["npm", "run", "start:dev"]
+COPY package*.json .
+
+RUN npm install
+
+COPY . .
+
+RUN npx prisma generate
+
+RUN npm run build
+
+CMD ["npm", "run", "start"]
 
